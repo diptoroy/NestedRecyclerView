@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "577887123936",
+    "project_id": "clickcount-bda71",
+    "storage_bucket": "clickcount-bda71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577887123936:android:3fc0b1a0c9d04016531385",
+        "android_client_info": {
+          "package_name": "com.ddev.nestedrecyclerview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577887123936-mqahrqj91uah276d2b1g94nlv47avv92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAh_Q2CLtgmFCChc-7P5r9uVGDcEXFcoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577887123936-mqahrqj91uah276d2b1g94nlv47avv92.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
