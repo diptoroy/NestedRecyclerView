@@ -19,7 +19,8 @@ class ChildAdapter : RecyclerView.Adapter<ChildAdapter.ViewHolder>() {
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.data_child_row,parent,false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.data_child_row, parent, false)
         return ViewHolder(view)
     }
 
@@ -28,31 +29,37 @@ class ChildAdapter : RecyclerView.Adapter<ChildAdapter.ViewHolder>() {
         holder.itemView.customer_Text.text = dataList[position].collectAmount.toString()
         holder.itemView.click_count_text.text = dataList[position].clickCount.toString()
 
-
-
+        var id: String = dataList[position].childId
+        db = FirebaseFirestore.getInstance()
         holder.itemView.setOnClickListener {
 
             count = Integer.parseInt(holder.itemView.click_count_text.text as String);
             count++
             holder.itemView.click_count_text.text = count.toString()
 
-            var id: String = dataList[position].childId
+
             var name: String = dataList[position].collectCustomer
             var amount: Int = dataList[position].collectAmount
             var clickCount: Int = count
-            val childId = DataChild(id,name,amount,clickCount)
+            val childId = DataChild(id, name, amount, clickCount)
 
-            db = FirebaseFirestore.getInstance()
+
             db.collection("ClickCount").document(id).set(childId).addOnCompleteListener {
-                if (it.isSuccessful){
-                    Log.d("count!","${it.result}")
-                    holder.itemView.click_count_text.text = "$count"
+                if (it.isSuccessful) {
+                    Log.d("count!", "${it.result}")
+//                    holder.itemView.click_count_text.text = "$count"
 
-                }else{
-                    Log.d("error","${it.exception}")
+                } else {
+                    Log.d("error", "${it.exception}")
                 }
             }
+        }
 
+        db.collection("ClickCount").document(id).get().addOnCompleteListener {
+            if (it.result!!.exists()){
+                val click: Int = it.result!!.getLong("clickCount")!!.toInt()
+                holder.itemView.click_count_text.text = "$click"
+            }
         }
 
     }
@@ -62,13 +69,13 @@ class ChildAdapter : RecyclerView.Adapter<ChildAdapter.ViewHolder>() {
         return dataList.size
     }
 
-    fun setChildData(newList: List<DataChild>){
+    fun setChildData(newList: List<DataChild>) {
         notifyDataSetChanged()
-         dataList= newList
+        dataList = newList
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
 
 
